@@ -25,8 +25,11 @@ function ajaxlogin(userName, password) {
 function insertUser(identification, name, password, rolId, idbranch) {
     url = urlBase + "User/Insert";
     body = {
-        "identification": identification,
-        "name": name,
+        "id": identification,
+        "Nombre": name,
+        "Apellido": lastname,
+        "Correo": email,
+        "Telefono": Telefono,
         "password": password,
         "rolId": rolId,
         "idbranch": idbranch
@@ -86,9 +89,25 @@ function deleteSupplier(supplierId) {
 }
 //---------------------------------------------------------------------------------------
 function productGetAll() {
-    //return consumoAjax("GET", urlBase + "Products/GetAll", "", "");
-    return consumoAjax("GET", "consumos/listproductos.json", "", "");
+    return consumoAjax("GET", "http://127.0.0.1:8000/api/precio/listaProductos/?format=json", "", "");
 }
+
+// Realizar la solicitud AJAX
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://127.0.0.1:8000/api/precio/listaProductos/?format=json', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Accept', 'application/json');
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    // Analizar la respuesta JSON
+    var products = JSON.parse(xhr.responseText);
+    
+    // Hacer algo con los datos recibidos
+    console.log(products);
+  }
+};
+xhr.send();
+
 //---------------------------------------------------------------------------------------
 function insertProduct(name, supplier, price) {
     url = urlBase + "Products/Insert";

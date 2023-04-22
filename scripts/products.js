@@ -21,20 +21,16 @@ async function getProveedor(proveedorId) {
 }
 
 async function listaProducto() {
-    var response = await productGetAll();
+    var response = await getProducts();
     for (const key in response) {
         var newRowContent =
             '<tr><td scope="row">' +
-            response[key].idproduct +
+            response[key].id +
             "</td><td>" +
-            response[key].name +
+            response[key].nombre +
             "</td><td>" +
-            await getProveedor(response[key].supplier) +
-            "</td><td>" +
-            response[key].price +
-            '</td><td class="text-center"><a class="text-warning" onclick="cargaEditarProducto('+response[key].idproduct +
-            ')" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></a></td><td class="text-center"><a class="text-danger" onclick="eliminarProducto('+response[key].idproduct +
-            ')"><i class="fa-regular fa-trash"></i></a></td></tr>';
+            response[key].valor +
+            '</td></tr>';
         $("#productTableBody").append(newRowContent);
     }
 }
